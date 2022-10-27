@@ -26,17 +26,17 @@ public class CliMain {
 
     private final static Path PATH = Paths.get("src","CLI","CLI.txt");
 
-
+    //=======Method for looping through contact array==================
     public static void showContact(ContactsList NameNum, ArrayList<String> contact){
-//        We need
         List<String> name = contact;
+//        name.add(NameNum.getName());
         name.add(NameNum.getName());
-        name.add(NameNum.getNumber());
         for(int i=0;i<name.size();i++){
             System.out.println(name.get(i));
         }
     }
 
+    //===========Method for writing to the txt doc of contact array
     public static void write(ArrayList<String> contact){
         List<String> name = contact;
         try {
@@ -45,6 +45,8 @@ public class CliMain {
             throw new RuntimeException(e);
         }
     }
+
+    ///==========
 
 
 
