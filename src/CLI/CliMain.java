@@ -60,6 +60,8 @@ public class CliMain {
         write(contact);
     }
 
+//    StandardOpenOption.APPEND
+
 //    public static void setNameList(List<String> nameList) {
 //        CliMain.nameList = nameList;
 //    }
