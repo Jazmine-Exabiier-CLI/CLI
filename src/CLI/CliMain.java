@@ -35,7 +35,7 @@ public class CliMain {
         return sc.nextLine();
     }
 
-    public static ArrayList<String> create() {
+    public static void create() {
 //        user input
         System.out.println("Enter the name: ");
         String name = userInput();
@@ -53,8 +53,8 @@ public class CliMain {
         ArrayList<String[]> StringArray = convertArray(nameNum, file);
 
 //       We need to convert the String[] back to a string so we can write onto the file like we want
-        return convertBackToString(StringArray);
-
+        ArrayList<String> stringList = convertBackToString(StringArray);
+        write(stringList);
     }
 
     public static ArrayList<String> convertBackToString(ArrayList<String[]> convert){
