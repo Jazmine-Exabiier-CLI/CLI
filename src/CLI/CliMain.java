@@ -35,13 +35,51 @@ public class CliMain {
         return sc.nextLine();
     }
 
-    public static String[] create() {
+    public static ArrayList<String> create() {
+//        user input
         System.out.println("Enter the name: ");
         String name = userInput();
         System.out.println("Enter the number: ");
         String num = userInput();
         String[] nameNum = {name, num};
-        return nameNum;
+        //////////////////////////////
+        ////////////Part 2///////////
+        ////////////////////////////
+
+//      Reading from the txt file
+        List<String> file = read();
+
+//        Put and add the Array together but we get back an array list
+        ArrayList<String[]> StringArray = convertArray(nameNum, file);
+
+//       We need to convert the String[] back to a string so we can write onto the file like we want
+        return convertBackToString(StringArray);
+
+    }
+
+    public static ArrayList<String> convertBackToString(ArrayList<String[]> convert){
+        List<String[]> listOfConverted = convert.stream().toList();
+        ArrayList<String> listOfSplitConverted = new ArrayList<>();
+        for (String[] listItem : listOfConverted) {
+            String str = String.join(" - ", listItem);
+            ;
+            listOfSplitConverted.add(str);
+//            System.out.println(Arrays.toString(listItem));
+        }
+        return listOfSplitConverted;
+    }
+
+    public static ArrayList<String[]> convertArray(String[] newAdd, List<String> file){
+
+//        String[] newAdd = create();
+//        List<String> listOfContacts = file.stream().toList();
+        ArrayList<String[]> listOfSplitContacts = new ArrayList<>();
+        for (String listItem : file) {
+            String[] splitListItem = listItem.split(" - ");
+            listOfSplitContacts.add(splitListItem);
+        }
+        listOfSplitContacts.add(newAdd);
+        return listOfSplitContacts;
     }
 
 
@@ -92,6 +130,7 @@ public class CliMain {
     }
 
 
+
     public static void main(String[] args) {
         ArrayList<String> contact = new ArrayList<>();
         ContactsList contact1 = new ContactsList("Jaz", "9032935456");
@@ -100,30 +139,30 @@ public class CliMain {
 //        write(contact);
 
 //        Adding from Users to the arraylist:
-        List<String> file = read();
-        String[] newAdd = create();
-        List<String> listOfContacts = file.stream().toList();
-        ArrayList<String[]> listOfSplitContacts = new ArrayList<>();
-        for (String listItem : file) {
-            String[] splitListItem = listItem.split("-");
-            listOfSplitContacts.add(splitListItem);
-
-        }
-        listOfSplitContacts.add(newAdd);
+//        List<String> file = read();
+//        String[] newAdd = create();
+//        List<String> listOfContacts = file.stream().toList();
+//        ArrayList<String[]> listOfSplitContacts = new ArrayList<>();
+//        for (String listItem : file) {
+//            String[] splitListItem = listItem.split(" - ");
+//            listOfSplitContacts.add(splitListItem);
+//
+//        }
+//        listOfSplitContacts.add(newAdd);
 
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////
 
-        List<String[]> listOfContact = listOfSplitContacts.stream().toList();
-        ArrayList<String> listOfSplitContacts1 = new ArrayList<>();
-        for (String[] listItem : listOfContact) {
-            String str = listItem.toString();
-            ;
-            listOfSplitContacts1.add(str);
-            System.out.println(listItem);
-        }
+//        List<String[]> listOfContact = listOfSplitContacts.stream().toList();
+//        ArrayList<String> listOfSplitContacts1 = new ArrayList<>();
+//        for (String[] listItem : listOfContact) {
+//            String str = String.join(" - ", listItem);
+//            ;
+//            listOfSplitContacts1.add(str);
+////            System.out.println(Arrays.toString(listItem));
+//        }
 //        System.out.println(listOfSplitContacts1);
 //        for (String splitContact : listOfSplitContacts1) {
 //            System.out.println(splitContact.toString());
