@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class CliMain {
@@ -82,14 +80,105 @@ public class CliMain {
         return listOfSplitContacts;
     }
 
+    public static void patternSearch(List<String> list, String userInput){
+        for(String contact : list) {
+            if (contact.toLowerCase().contains(userInput.toLowerCase())) {
+                System.out.println(contact);
+            }
+        }
+    }
+
+    public static void searchContact(){
+
+        System.out.println("Please Enter the Name of the ");
+        String name = userInput();
+
+        ///////////////////////////////////////
+
+        List<String> fromText = read();
+        System.out.println("Here is your seach for " + name);
+
+        ///////////////// Search regardless of Uppercase or LowerCase /////////////////////
+
+        patternSearch(fromText, name);
+
+        }
+
+        public static void delete () {
+
+        ////////////////// Out Putting //////////////////////////
+
+            List<String> contacts = read();
+            int count = 0;
+            System.out.println("Here are the current contacts Available: ");
+            for(int i = 0; i<contacts.size(); i++){
+                System.out.println((count+1) + ". " + contacts.get(i));
+                count ++;
+            }
+            System.out.println(count);
+
+            ////////////////// User Input /////////////////////////////
+            System.out.println("Please pick the contact you want to delete by number:");
+            String userInput = userInput();
+
+            /////////////////// if there is no number ////////////////
+            if(isNumeric(userInput)){
+
+
+
+            } else{
+                System.out.println("Please Enter a real number!");
+                delete();
+            }
+
+
+        }
+
+//        create another function for when you get an out of bounds for the index of the list
+
+
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            int d = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+
+//        Iterator<String> textIt = fromText.iterator();
+
+        // Condition check for elements in List
+        // using hasNext() method returning true till
+        // there i single element in a List
+//        while (textIt.hasNext()) {
+//            if(textIt.contains() )
+//
+//            // Print all elements of List
+//            System.out.println(textIt.next());
+//        }
+
+
+
+//        we need to have a way to show the contacts:
+//        from the file.
+
+//        what if we have names that are the same. Lets make a new array and if that arrrays length is less then one then will ask the user which one would the like to get.
+
+
+
 
     //=======Method for looping through contact array==================
-    public static void showContact(ContactsList NameNum, ArrayList<String> contact) {
-        List<String> name = contact;
-//        name.add(NameNum.getName());
-        name.add(NameNum.getName());
+    public static void showContact() {
+
+        List<String> name = read();
         for (int i = 0; i < name.size(); i++) {
-//            System.out.println(name.get(i));
+            System.out.println(name.get(i));
         }
     }
 
@@ -132,8 +221,33 @@ public class CliMain {
 
 
     public static void main(String[] args) {
-        ArrayList<String> contact = new ArrayList<>();
-        ContactsList contact1 = new ContactsList("Jaz", "9032935456");
+
+//        1. View contacts.
+//        2. Add a new contact.
+//        3. Search a contact by name.
+//        4. Delete an existing contact.
+//        5. Exit.
+//                Enter an option (1, 2, 3, 4 or 5):
+
+//        Name | Phone number
+//                ---------------
+//                Jack Blank | 1231231234
+//        Jane Doe | 2342342345
+//        Sam Space | 3453453456
+
+//    create();
+//    searchContact();
+        delete()
+
+
+
+
+
+
+
+
+//        ArrayList<String> contact = new ArrayList<>();
+//        ContactsList contact1 = new ContactsList("Jaz", "9032935456");
 //        showContact(contact1, contact);
 //        System.out.println(contact);
 //        write(contact);
