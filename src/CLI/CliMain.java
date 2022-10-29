@@ -109,25 +109,23 @@ public class CliMain {
         ////////////////// Out Putting //////////////////////////
 
             List<String> contacts = read();
-            int count = 0;
-            System.out.println("Here are the current contacts Available: ");
-            for(int i = 0; i<contacts.size(); i++){
-                System.out.println((count+1) + ". " + contacts.get(i));
-                count ++;
-            }
-            System.out.println(count);
+            printOut();
+//            int count = 0;
+//            System.out.println("Here are the current contacts Available: ");
+//            for(int i = 0; i<contacts.size(); i++){
+//                System.out.println((count+1) + ". " + contacts.get(i));
+//                count ++;
+//            }
 
             ////////////////// User Input /////////////////////////////
-            System.out.println("Please pick the contact you want to delete by number:");
+            System.out.println("\nPlease pick the contact you want to delete:");
             String userInput = userInput();
 
             /////////////////// if there is no number ////////////////
             if(isNumeric(userInput)){
-
-
-
+                deleteFromArray(contacts, userInput);
             } else{
-                System.out.println("Please Enter a real number!");
+                System.out.println("\nPlease Enter a real number!");
                 delete();
             }
 
@@ -148,6 +146,44 @@ public class CliMain {
             return false;
         }
         return true;
+    }
+
+    public static void deleteFromArray(List<String> contacts, String userInput){
+        int userInputNum = Integer.parseInt(userInput);
+        try{
+            contacts.remove(userInputNum-1);
+        } catch(Exception e){
+            System.out.println("Please pick a number between 1 and " + contacts.size());
+            delete();
+        }
+        ArrayList<String> contacts1 = (ArrayList<String>) contacts;
+        write(contacts1);
+        System.out.println("Here is your new Contact list:\n");
+        printOut();
+
+        /////////////////////// Would You like to go back /////////
+
+        System.out.println("Would you like to go back to the main Manue [y/n]");
+        String exitInput = userInput();
+        if(exitInput.equalsIgnoreCase("y")){
+
+            main (new String[] {});
+
+        } else {
+            System.out.println("Have a nice Day!");
+        }
+
+    }
+
+    public static void printOut(){
+        System.out.println("Name | Phone number\n" +
+                "---------------");
+        int count = 0;
+        List<String> contacts = read();
+        for(int i = 0; i<contacts.size(); i++){
+            System.out.println((count+1) + ". " + contacts.get(i));
+            count ++;
+        }
     }
 
 
@@ -222,6 +258,8 @@ public class CliMain {
 
     public static void main(String[] args) {
 
+
+//        main (new String[] {});
 //        1. View contacts.
 //        2. Add a new contact.
 //        3. Search a contact by name.
@@ -238,6 +276,8 @@ public class CliMain {
 //    create();
 //    searchContact();
         delete()
+
+
 
 
 
