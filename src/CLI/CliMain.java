@@ -181,6 +181,7 @@ public class CliMain {
         List<String> contacts = read();
         for(int i = 0; i<contacts.size(); i++){
             System.out.println((count+1) + ". " + contacts.get(i));
+
             count ++;
         }
     }
