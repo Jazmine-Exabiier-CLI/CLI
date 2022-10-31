@@ -53,6 +53,10 @@ public class CliMain {
 //       We need to convert the String[] back to a string so we can write onto the file like we want
         ArrayList<String> stringList = convertBackToString(StringArray);
         write(stringList);
+
+//      To show conacts after creat a new contact
+        printOut();
+        backToMain();
     }
 
     public static ArrayList<String> convertBackToString(ArrayList<String[]> convert){
@@ -103,7 +107,7 @@ public class CliMain {
         ///////////////// Search regardless of Uppercase or LowerCase /////////////////////
 
         patternSearch(fromText, name);
-
+        backToMain();
         }
 
         public static void delete () {
@@ -167,16 +171,7 @@ public class CliMain {
 
         /////////////////////// Would You like to go back /////////
 
-        System.out.println("Would you like to go back to the main Manue [y/n]");
-        String exitInput = userInput();
-        if(exitInput.equalsIgnoreCase("y")){
-
-            main (new String[] {});
-
-        } else {
-            System.out.println("Have a nice Day!");
-        }
-
+        backToMain();
     }
 
     public static void printOut(){
@@ -259,23 +254,62 @@ public class CliMain {
     }
 
 
+    public static void mainMenu (){
+        System.out.println("\n1. View contacts.\n" +
+                "2. Add a new contact.\n" +
+                "3. Search a contact by name.\n" +
+                "4. Delete an existing contact.\n" +
+                "5. Exit.\n" +
+                "Enter an option (1, 2, 3, 4 or 5):");
+        String mainInput = userInput();
+        switch(mainInput){
+            case "1":
+                //function to loop through contacts
+                printOut();
+                backToMain();
+                break;
+            case "2":
+                //add new contact
+                create();
+
+                break;
+            case "3":
+                //search by name
+                searchContact();
+
+                break;
+            case "4":
+                //delete an existing contact
+                delete();
+                break;
+            case "5":
+                printOut();
+                break;
+            default:
+                System.out.println("Please ONLY enter (1, 2, 3, 4, or 5): ");
+
+                main(new String[] {});
+        }
+
+    }
+
+    public static void backToMain(){
+        System.out.println("Would you like to go back to the main Menu [y/n]");
+        String exitInput = userInput();
+        if(exitInput.equalsIgnoreCase("y")){
+
+            main (new String[] {});
+
+        } else {
+            System.out.println("Have a nice Day!");
+            printOut();
+        }
+    }
+
 
     public static void main(String[] args) {
 
-
-//        main (new String[] {});
-//        1. View contacts.
-//        2. Add a new contact.
-//        3. Search a contact by name.
-//        4. Delete an existing contact.
-//        5. Exit.
-//                Enter an option (1, 2, 3, 4 or 5):
-
-//        Name | Phone number
-//                ---------------
-//                Jack Blank | 1231231234
-//        Jane Doe | 2342342345
-//        Sam Space | 3453453456
+        mainMenu();
 
 //    create();
 //    searchContact();
