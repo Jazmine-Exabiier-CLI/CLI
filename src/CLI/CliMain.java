@@ -81,6 +81,8 @@ public class CliMain {
     }
 
     public static void patternSearch(List<String> list, String userInput){
+        System.out.println("Name | Phone number\n" +
+                "---------------");
         for(String contact : list) {
             if (contact.toLowerCase().contains(userInput.toLowerCase())) {
                 System.out.println(contact);
@@ -156,6 +158,8 @@ public class CliMain {
             System.out.println("Please pick a number between 1 and " + contacts.size());
             delete();
         }
+
+//        converting a List<String> to ArrayList<String>
         ArrayList<String> contacts1 = (ArrayList<String>) contacts;
         write(contacts1);
         System.out.println("Here is your new Contact list:\n");
@@ -275,7 +279,8 @@ public class CliMain {
 
 //    create();
 //    searchContact();
-        delete()
+//        delete()
+//        printout();
 
 
 
