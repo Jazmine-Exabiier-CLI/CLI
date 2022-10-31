@@ -6,14 +6,14 @@ package CLI;
 public class ContactsList {
 
 //    private ArrayList<String> name;
-    private String nameNum;
+    private String name;
     private String number;
     //=========================GETTING AND SETTING NAME=============================
     public String getName() {
-        return nameNum;
+        return name;
     }
     public void setName(String name) {
-        this.nameNum = name;
+        this.name = name;
     }
     //=========================GETTING AND SETTING NUMBER=============================
     public String getNumber() {
@@ -24,14 +24,15 @@ public class ContactsList {
     }
     //===========================toString Method====================
     public String toString(){
-        return nameNum;
+        return name;
     }
 
     public ContactsList(){}
 
     //=====Conductor putting both name and number on the same line=======================
     public ContactsList(String name, String number){
-        this.nameNum = name + "-" + number;
+        this.name = name;
+        this.number = number;
 
     }
 

@@ -10,28 +10,46 @@ import java.util.stream.Stream;
 
 public class CliMain {
 
-    // greet names
-//        greetNames();
-//        System.out.println("==================");
-
-    // write to file and replace names...
-//        List<String> newNames = Arrays.asList("Cody", "Nikki", "Jordy", "Jay");
-//        writeLines(newNames);
-//        greetNames();
-
-//    private static void greetNames() {
-//        for (String name : readLines()) {
-//            System.out.printf("%s works at Codeup.%n", name);
-//        }
-//    }
-
+//    The path for for our file
     private final static Path PATH = Paths.get("src", "CLI", "CLI.txt");
 
-
+///////////////////////////////////////////////
+/////////////// UserInput ////////////////////
+/////////////////////////////////////////////
     public static String userInput() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
+
+///////////////////////////////////////////////
+/////////////// Read and Write ////////////////////
+/////////////////////////////////////////////
+
+//    Writing to the Text file:
+    public static void write(ArrayList<String> contact) {
+        List<String> name = contact;
+        try {
+            Files.write(PATH, name);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+//    Reading form the Text file
+    public static List<String> read() {
+        List<String> names;
+        try {
+            names = Files.readAllLines(PATH);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return names;
+    }
+
+
+///////////////////////////////////////////////
+/////////////// Creating Contact ////////////////////
+/////////////////////////////////////////////
 
     public static void create() {
 //        user input
@@ -39,7 +57,11 @@ public class CliMain {
         String name = userInput();
         System.out.println("Enter the number: ");
         String num = userInput();
-        String[] nameNum = {name, num};
+
+//        Using the object in Order to to add to the list:
+        ContactsList newUser = new ContactsList(name, num);
+        String[] nameNum = {newUser.getName(), newUser.getNumber()};
+
         //////////////////////////////
         ////////////Part 2///////////
         ////////////////////////////
@@ -48,10 +70,14 @@ public class CliMain {
         List<String> file = read();
 
 //        Put and add the Array together but we get back an array list
+//      Line 100:
         ArrayList<String[]> StringArray = convertArray(nameNum, file);
 
 //       We need to convert the String[] back to a string so we can write onto the file like we want
+//      Line 88:
         ArrayList<String> stringList = convertBackToString(StringArray);
+
+//        Writing the
         write(stringList);
 
 //      To show conacts after creat a new contact
@@ -73,8 +99,6 @@ public class CliMain {
 
     public static ArrayList<String[]> convertArray(String[] newAdd, List<String> file){
 
-//        String[] newAdd = create();
-//        List<String> listOfContacts = file.stream().toList();
         ArrayList<String[]> listOfSplitContacts = new ArrayList<>();
         for (String listItem : file) {
             String[] splitListItem = listItem.split(" - ");
@@ -83,6 +107,11 @@ public class CliMain {
         listOfSplitContacts.add(newAdd);
         return listOfSplitContacts;
     }
+
+
+///////////////////////////////////////////////
+/////////////// Search Contact ////////////////////
+/////////////////////////////////////////////
 
     public static void patternSearch(List<String> list, String userInput){
         System.out.println("Name | Phone number\n" +
@@ -106,9 +135,14 @@ public class CliMain {
 
         ///////////////// Search regardless of Uppercase or LowerCase /////////////////////
 
+//      Line 116:
         patternSearch(fromText, name);
         backToMain();
         }
+
+///////////////////////////////////////////////
+/////////////// Delete Contact ////////////////////
+/////////////////////////////////////////////
 
         public static void delete () {
 
@@ -116,19 +150,15 @@ public class CliMain {
 
             List<String> contacts = read();
             printOut();
-//            int count = 0;
-//            System.out.println("Here are the current contacts Available: ");
-//            for(int i = 0; i<contacts.size(); i++){
-//                System.out.println((count+1) + ". " + contacts.get(i));
-//                count ++;
-//            }
 
-            ////////////////// User Input /////////////////////////////
+        ////////////////// User Input /////////////////////////////
             System.out.println("\nPlease pick the contact you want to delete:");
             String userInput = userInput();
 
-            /////////////////// if there is no number ////////////////
+        /////////////////// if there is no number ////////////////
+//          Line 172:
             if(isNumeric(userInput)){
+//              Line 184:
                 deleteFromArray(contacts, userInput);
             } else{
                 System.out.println("\nPlease Enter a real number!");
@@ -138,10 +168,7 @@ public class CliMain {
 
         }
 
-//        create another function for when you get an out of bounds for the index of the list
-
-
-
+//        To see if a number is a number
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -174,6 +201,10 @@ public class CliMain {
         backToMain();
     }
 
+///////////////////////////////////////////////
+/////////////// PrintOut Contact ////////////////////
+/////////////////////////////////////////////
+
     public static void printOut(){
         System.out.println("Name | Phone number\n" +
                 "---------------");
@@ -186,74 +217,9 @@ public class CliMain {
         }
     }
 
-
-//        Iterator<String> textIt = fromText.iterator();
-
-        // Condition check for elements in List
-        // using hasNext() method returning true till
-        // there i single element in a List
-//        while (textIt.hasNext()) {
-//            if(textIt.contains() )
-//
-//            // Print all elements of List
-//            System.out.println(textIt.next());
-//        }
-
-
-
-//        we need to have a way to show the contacts:
-//        from the file.
-
-//        what if we have names that are the same. Lets make a new array and if that arrrays length is less then one then will ask the user which one would the like to get.
-
-
-
-
-    //=======Method for looping through contact array==================
-    public static void showContact() {
-
-        List<String> name = read();
-        for (int i = 0; i < name.size(); i++) {
-            System.out.println(name.get(i));
-        }
-    }
-
-    //===========Method for writing to the txt doc of contact array
-    public static void write(ArrayList<String> contact) {
-        List<String> name = contact;
-        try {
-            Files.write(PATH, name);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static List<String> read() {
-        List<String> names;
-        try {
-            names = Files.readAllLines(PATH);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return names;
-    }
-
-
-    ///==========
-
-    public static boolean findContactByName(String name, List<String> contactsList) {
-        for (String listItem : contactsList) {
-            System.out.println(listItem);
-            String[] splitListItem = listItem.split("-");
-            System.out.println(splitListItem[0]);
-            System.out.println(splitListItem[1]);
-            if (splitListItem[0].equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+///////////////////////////////////////////////
+/////////////// Main Menu Contact ////////////////////
+/////////////////////////////////////////////
 
     public static void mainMenu (){
         System.out.println("\n1. View contacts.\n" +
@@ -266,24 +232,34 @@ public class CliMain {
         switch(mainInput){
             case "1":
                 //function to loop through contacts
+
+//              Line 208:
                 printOut();
+
+//              Line 277:
                 backToMain();
+
                 break;
             case "2":
                 //add new contact
+//              Line 54:
                 create();
 
                 break;
             case "3":
                 //search by name
+//              Line 126:
                 searchContact();
 
                 break;
             case "4":
                 //delete an existing contact
+//              Line 147:
                 delete();
+
                 break;
             case "5":
+
                 printOut();
                 break;
             default:
@@ -293,6 +269,10 @@ public class CliMain {
         }
 
     }
+
+///////////////////////////////////////////////
+/////////////// Back to Main Menu ////////////////////
+/////////////////////////////////////////////
 
     public static void backToMain(){
         System.out.println("Would you like to go back to the main Menu [y/n]");
@@ -307,106 +287,9 @@ public class CliMain {
         }
     }
 
-
     public static void main(String[] args) {
 
+//        Line 211:
         mainMenu();
-
-//    create();
-//    searchContact();
-//        delete()
-//        printout();
-
-
-
-
-
-
-
-
-
-
-//        ArrayList<String> contact = new ArrayList<>();
-//        ContactsList contact1 = new ContactsList("Jaz", "9032935456");
-//        showContact(contact1, contact);
-//        System.out.println(contact);
-//        write(contact);
-
-//        Adding from Users to the arraylist:
-//        List<String> file = read();
-//        String[] newAdd = create();
-//        List<String> listOfContacts = file.stream().toList();
-//        ArrayList<String[]> listOfSplitContacts = new ArrayList<>();
-//        for (String listItem : file) {
-//            String[] splitListItem = listItem.split(" - ");
-//            listOfSplitContacts.add(splitListItem);
-//
-//        }
-//        listOfSplitContacts.add(newAdd);
-
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////
-
-//        List<String[]> listOfContact = listOfSplitContacts.stream().toList();
-//        ArrayList<String> listOfSplitContacts1 = new ArrayList<>();
-//        for (String[] listItem : listOfContact) {
-//            String str = String.join(" - ", listItem);
-//            ;
-//            listOfSplitContacts1.add(str);
-////            System.out.println(Arrays.toString(listItem));
-//        }
-//        System.out.println(listOfSplitContacts1);
-//        for (String splitContact : listOfSplitContacts1) {
-//            System.out.println(splitContact.toString());
-
-//        }
-            ;
-//        System.out.println(Arrays.toString(create()));
-
-
-//      old code:
-//        Stream<String> newContacts = file.stream();
-//        Stream<Object> newContact1 = newContacts.map(s->{
-//           return s.split("-");
-//        });
-//        Object[] newContact2 = newContact1.toArray(Object[]::new);
-//        List<Object> list = new ArrayList<Object>();
-//        list.add(newContact2);
-//        System.out.println(list);
-
-//        using stream to create convert sting to String []
-//        String nameToFind = "Jaz";
-//        List<String> listOfContacts = file.stream().toList();
-//        ArrayList<String[]> listOfSplitContacts = new ArrayList<>();
-//        for (String listItem : file){
-//            System.out.println(listItem);
-//            String[] splitListItem = listItem.split("-");
-//            System.out.println(splitListItem[0]);
-//            System.out.println(splitListItem[1]);
-//            listOfSplitContacts.add(splitListItem);
-//        }
-//        System.out.println(findContactByName("Exabiier", file));
-//        for (String[] splitContact : listOfSplitContacts){
-//            System.out.println(splitContact[0]);
-//            System.out.println(splitContact[1]);
-//        }
-//        System.out.println(listOfSplitContacts);
-
-
-//        for(int i=0;i<x.size();i++){
-//            String ContactInfo = x.get(i);
-//
-//        }
-
-
-//        }
-
-//    StandardOpenOption.APPEND
-
-//    public static void setNameList(List<String> nameList) {
-//        CliMain.nameList = nameList;
-//    }
     }
 }
